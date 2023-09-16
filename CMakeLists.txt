@@ -262,11 +262,13 @@ if(WITH_CORE)
     set (POSTGRESQL_PREFIX "" CACHE PATH "Path to POSTGRESQL base directory")
   endif()
 
-  # try to configure and build POSTGRESQL support
+  # try to configure and build Spatialite support
   set (WITH_SPATIALITE TRUE CACHE BOOL "Determines whether Spatialite support should be built (required for spatialite, virtual, wfs providers)")
   if (WITH_SPATIALITE)
       set (WITH_QSPATIALITE FALSE CACHE BOOL "Determines whether QSPATIALITE sql driver should be built")
   endif()
+
+  set (WITH_AWSSDK TRUE CACHE BOOL "Determines whether AWS SDK support should be built in")
 
   set (WITH_ORACLE FALSE CACHE BOOL "Determines whether Oracle support should be built")
   if(WITH_ORACLE)
@@ -402,6 +404,10 @@ if(WITH_CORE)
     find_package(SpatiaLite REQUIRED)
     set (HAVE_SPATIALITE TRUE)
   endif()
+
+  if (WITH_AWSSDK)
+    set(AWS_SERVICE_COMPONENTS s3)
+    find_package(AWS)
 
   if (NOT PROJ_FOUND OR NOT GEOS_FOUND OR NOT GDAL_FOUND)
     message (SEND_ERROR "Some dependencies were not found! Proj: ${PROJ_FOUND}, Geos: ${GEOS_FOUND}, GDAL: ${GDAL_FOUND}")

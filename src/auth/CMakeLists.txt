@@ -24,3 +24,7 @@ add_subdirectory(awss3)
 if (WITH_OAUTH2_PLUGIN)
   add_subdirectory(oauth2)
 endif()
+
+if (WITH_AWSSDK)
+  add_subdirectory(awssso)
+endif()
